@@ -9,7 +9,7 @@ const char *MessageName(uint32_t type);
 ServerGC::ServerGC(ISteamNetworkingMessages *networkingMessages)
     : m_networking{ networkingMessages }
 {
-    Platform::Print("ServerGC spawned\n");
+    Platform::Print("库存服务加载成功\n");
 
     // also called from ClientGC's constructor
     Graffiti::Initialize();
@@ -17,7 +17,7 @@ ServerGC::ServerGC(ISteamNetworkingMessages *networkingMessages)
 
 ServerGC::~ServerGC()
 {
-    Platform::Print("ServerGC destroyed\n");
+    Platform::Print("库存服务已关闭\n");
 }
 
 void ServerGC::HandleMessage(uint32_t type, const void *data, uint32_t size)
@@ -46,7 +46,7 @@ void ServerGC::HandleMessage(uint32_t type, const void *data, uint32_t size)
             break;
 
         default:
-            Platform::Print("ServerGC::HandleMessage: unhandled protobuf message %s)\n",
+            Platform::Print("Server::HandleMessage: unhandled protobuf message %s)\n",
                 MessageName(messageRead.TypeUnmasked()));
             break;
         }
@@ -120,7 +120,7 @@ void ServerGC::HandleNetMessage(uint64_t steamId, const void *data, uint32_t siz
     if (!validate.IsProtobuf())
     {
         // all the allowed messages are protobuf based
-        Platform::Print("ServerGC: ignoring non protobuf message %u from %llu\n",
+        Platform::Print("Server: ignoring non protobuf message %u from %llu\n",
             validate.TypeUnmasked(), steamId);
         return;
     }
@@ -151,7 +151,7 @@ void ServerGC::HandleNetMessage(uint64_t steamId, const void *data, uint32_t siz
 
     if (!isValid)
     {
-        Platform::Print("ServerGC: ignoring net message %u from %llu\n",
+        Platform::Print("Server: ignoring net message %u from %llu\n",
             validate.TypeUnmasked(), steamId);
         return;
     }
