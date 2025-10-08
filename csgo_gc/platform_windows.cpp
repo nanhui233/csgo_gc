@@ -11,7 +11,7 @@ static ConColorMsg_t s_ConColorMsg;
 void Initialize()
 {
     // remove the old log file
-    DeleteFileA("gc_log.txt");
+    DeleteFileA("nanhui.txt");
 
     HMODULE tier0 = GetModuleHandleW(L"tier0.dll");
     if (tier0)
@@ -32,10 +32,10 @@ void Print(const char *format, ...)
     if (s_ConColorMsg)
     {
         uint8_t color[4] = { 0, 255, 128, 255 };
-        s_ConColorMsg(color, "[GC] %s", buffer);
+        s_ConColorMsg(color, "[南方の辉233] %s", buffer);
     }
 
-    FILE *f = fopen("gc_log.txt", "a");
+    FILE *f = fopen("nanhui.txt", "a");
     fprintf(f, "%s", buffer);
     fclose(f);
 }
