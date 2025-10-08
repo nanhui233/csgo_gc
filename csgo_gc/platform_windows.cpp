@@ -31,7 +31,7 @@ void Print(const char *format, ...)
 
     if (s_ConColorMsg)
     {
-        uint8_t color[4] = { 0, 255, 128, 255 };
+        uint8_t color[4] = { 0, 135, 206, 235 };
         s_ConColorMsg(color, "[南方の辉233] %s", buffer);
     }
 
@@ -49,7 +49,7 @@ void Error(const char *format, ...)
     vsnprintf(buffer, sizeof(buffer), format, ap);
     va_end(ap);
 
-    MessageBoxA(nullptr, buffer, "csgo_gc", MB_OK | MB_ICONERROR);
+    MessageBoxA(nullptr, buffer, "nanhui", MB_OK | MB_ICONERROR);
     ExitProcess(1);
 }
 
