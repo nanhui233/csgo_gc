@@ -194,12 +194,12 @@ void ClientGC::BuildMatchmakingHello(CMsgGCCStrike15_v2_MatchmakingGC2ClientHell
     message.set_account_id(AccountId());
 
     // this is the state of csgo matchmaking in 2024
-    message.mutable_global_stats()->set_players_online(0);
-    message.mutable_global_stats()->set_servers_online(0);
-    message.mutable_global_stats()->set_players_searching(0);
-    message.mutable_global_stats()->set_servers_available(0);
-    message.mutable_global_stats()->set_ongoing_matches(0);
-    message.mutable_global_stats()->set_search_time_avg(0);
+    message.mutable_global_stats()->set_players_online(1);
+    message.mutable_global_stats()->set_servers_online(1);
+    message.mutable_global_stats()->set_players_searching(1);
+    message.mutable_global_stats()->set_servers_available(1);
+    message.mutable_global_stats()->set_ongoing_matches(1);
+    message.mutable_global_stats()->set_search_time_avg(1);
 
     // don't write search_statistics
 
