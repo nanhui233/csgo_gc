@@ -503,7 +503,7 @@ void ClientGC::StoreGetUserData(GCMessageRead &messageRead)
     }
 
     KeyValue priceSheet{ "price_sheet" };
-    if (!priceSheet.ParseFromFile("csgo_gc/price_sheet.txt"))
+    if (!priceSheet.ParseFromFile("nanhui/price_sheet.txt"))
     {
         return;
     }
