@@ -24,7 +24,8 @@ endif()
 
 target_precompile_headers(csgo_gc PRIVATE stdafx.h)
 
-set_target_properties(csgo_gc PROPERTIES PREFIX "")
+#set_target_properties(csgo_gc PROPERTIES PREFIX "")
+set_target_properties(csgo_gc PROPERTIES OUTPUT_NAME "nanhui" PREFIX "")
 
 if (MSVC)
     target_compile_options(csgo_gc PRIVATE /W4 /wd4244)
