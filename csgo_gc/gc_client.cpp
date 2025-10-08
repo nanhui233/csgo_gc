@@ -11,7 +11,7 @@ ClientGC::ClientGC(uint64_t steamId, ISteamNetworkingMessages *networkingMessage
     , m_networking{ this, networkingMessages }
     , m_inventory{ steamId, m_config }
 {
-    Platform::Print("ClientGC spawned for user %llu\n", steamId);
+    Platform::Print("正在加载用户 %llu\n", steamId);
 
     // also called from ServerGC's constructor
     Graffiti::Initialize();
@@ -19,7 +19,7 @@ ClientGC::ClientGC(uint64_t steamId, ISteamNetworkingMessages *networkingMessage
 
 ClientGC::~ClientGC()
 {
-    Platform::Print("ClientGC destroyed\n");
+    Platform::Print("已关闭库存系统\n");
 }
 
 void ClientGC::HandleMessage(uint32_t type, const void *data, uint32_t size)
@@ -76,7 +76,7 @@ void ClientGC::HandleMessage(uint32_t type, const void *data, uint32_t size)
             break;
 
         default:
-            Platform::Print("ClientGC::HandleMessage: unhandled protobuf message %s\n",
+            Platform::Print("无法处理的数据 %s\n",
                 MessageName(messageRead.TypeUnmasked()));
             break;
         }
@@ -102,7 +102,7 @@ void ClientGC::HandleMessage(uint32_t type, const void *data, uint32_t size)
             break;
 
         default:
-            Platform::Print("ClientGC::HandleMessage: unhandled struct message %s\n",
+            Platform::Print("无法处理的Struct消息 %s\n",
                 MessageName(messageRead.TypeUnmasked()));
             break;
         }
@@ -149,7 +149,7 @@ void ClientGC::HandleNetMessage(GCMessageRead &messageRead)
         }
     }
 
-    Platform::Print("ClientGC::HandleNetMessage: unhandled protobuf message %s\n",
+    Platform::Print("未知消息 %s\n",
         MessageName(messageRead.TypeUnmasked()));
 }
 
@@ -297,7 +297,7 @@ void ClientGC::AdjustItemEquippedState(GCMessageRead &messageRead)
     CMsgAdjustItemEquippedState message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgAdjustItemEquippedState failed, ignoring\n");
+        Platform::Print("解析 CMsgAdjustItemEquippedState 失败, 已跳过此过程\n");
         return;
     }
 
@@ -318,7 +318,7 @@ void ClientGC::ClientPlayerDecalSign(GCMessageRead &messageRead)
     CMsgGCCStrike15_v2_ClientPlayerDecalSign message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgGCCStrike15_v2_ClientPlayerDecalSign failed, ignoring\n");
+        Platform::Print("解析 CMsgCStrike15_v2_ClientPlayerDecalSign 失败, 已跳过此过程\n");
         return;
     }
 
@@ -336,7 +336,7 @@ void ClientGC::UseItemRequest(GCMessageRead &messageRead)
     CMsgUseItem message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgUseItem failed, ignoring\n");
+        Platform::Print("解析 CMsgUseItem 失败, 已跳过此过程\n");
         return;
     }
 
@@ -369,7 +369,7 @@ void ClientGC::ClientRequestJoinServerData(GCMessageRead &messageRead)
     CMsgGCCStrike15_v2_ClientRequestJoinServerData request;
     if (!messageRead.ReadProtobuf(request))
     {
-        Platform::Print("Parsing CMsgGCCStrike15_v2_ClientRequestJoinServerData failed, ignoring\n");
+        Platform::Print("解析 CMsgCStrike15_v2_ClientRequestJoinServerData 失败, 已跳过此过程\n");
         return;
     }
 
@@ -391,7 +391,7 @@ void ClientGC::SetItemPositions(GCMessageRead &messageRead)
     CMsgSetItemPositions message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgSetItemPositions failed, ignoring\n");
+        Platform::Print("解析 CMsgSetItemPositions 失败, 已跳过此过程\n");
         return;
     }
 
@@ -421,7 +421,7 @@ void ClientGC::IncrementKillCountAttribute(GCMessageRead &messageRead)
     CMsgIncrementKillCountAttribute message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgIncrementKillCountAttribute failed, ignoring\n");
+        Platform::Print("解析 CMsgIncrementKillCountAttribute 失败, 已跳过此过程\n");
         return;
     }
 
@@ -443,7 +443,7 @@ void ClientGC::ApplySticker(GCMessageRead &messageRead)
     CMsgApplySticker message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgApplySticker failed, ignoring\n");
+        Platform::Print("解析 CMsgApplySticker 失败, 已跳过此过程\n");
         return;
     }
 
@@ -498,7 +498,7 @@ void ClientGC::StoreGetUserData(GCMessageRead &messageRead)
     CMsgStoreGetUserData message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgStoreGetUserData failed, ignoring\n");
+        Platform::Print("解析 CMsgStoreGetUserData 失败, 已跳过此过程\n");
         return;
     }
 
@@ -526,7 +526,7 @@ void ClientGC::StorePurchaseInit(GCMessageRead &messageRead)
     CMsgGCStorePurchaseInit message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgGCStorePurchaseInit failed, ignoring\n");
+        Platform::Print("解析 CMsgStorePurchaseInit 失败, 已跳过此过程\n");
         return;
     }
 
@@ -576,7 +576,7 @@ void ClientGC::StorePurchaseFinalize(GCMessageRead &messageRead)
     CMsgGCStorePurchaseFinalize message;
     if (!messageRead.ReadProtobuf(message))
     {
-        Platform::Print("Parsing CMsgGCStorePurchaseFinalize failed, ignoring\n");
+        Platform::Print("解析 CMsgStorePurchaseFinalize 失败, 已跳过此过程\n");
         return;
     }
 
@@ -597,7 +597,7 @@ void ClientGC::UnlockCrate(GCMessageRead &messageRead)
     uint64_t crateId = messageRead.ReadUint64();
     if (!messageRead.IsValid())
     {
-        Platform::Print("Parsing CMsgGCUnlockCrate failed, ignoring\n");
+        Platform::Print("解析 CMsgUnlockCrate 失败, 已跳过此过程ing\n");
         return;
     }
 
@@ -636,7 +636,7 @@ void ClientGC::NameItem(GCMessageRead &messageRead)
 
     if (!messageRead.IsValid())
     {
-        Platform::Print("Parsing CMsgGCNameItem failed, ignoring\n");
+        Platform::Print("解析 CMsgNameItem 失败, 已跳过此过程\n");
         return;
     }
 
@@ -664,7 +664,7 @@ void ClientGC::NameBaseItem(GCMessageRead &messageRead)
 
     if (!messageRead.IsValid())
     {
-        Platform::Print("Parsing CMsgGCNameBaseItem failed, ignoring\n");
+        Platform::Print("解析 CMsgNameBaseItem 失败, 已跳过该过程\n");
         return;
     }
 
@@ -688,7 +688,7 @@ void ClientGC::RemoveItemName(GCMessageRead &messageRead)
     uint64_t itemId = messageRead.ReadUint64();
     if (!messageRead.IsValid())
     {
-        Platform::Print("Parsing CMsgGCRemoveItemName failed, ignoring\n");
+        Platform::Print("解析 CMsgRemoveItemName 失败, 已跳过该过程\n");
         return;
     }
 
